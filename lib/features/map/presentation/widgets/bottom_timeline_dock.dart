@@ -17,7 +17,7 @@ class BottomTimelineDock extends StatelessWidget {
 
   int get currentYear => 2017 + (currentMonthIndex ~/ 12);
   int get currentMonth => (currentMonthIndex % 12) + 1;
-  bool get isAIForecast => currentYear >= 2025;
+  bool get isAIForecast => currentYear >= 2026;
 
   @override
   Widget build(BuildContext context) {

@@ -7,25 +7,23 @@ class InspectionBottomSheet extends StatelessWidget {
   final String wardName, district, selectedIndicator;
   final int month, year;
   final double currentVal;
+  final List<double> timeseries; // DỮ LIỆU THẬT 120 THÁNG
 
   const InspectionBottomSheet({
     super.key, required this.wardName, required this.district,
     required this.month, required this.year, required this.currentVal,
-    required this.selectedIndicator,
+    required this.selectedIndicator, required this.timeseries,
   });
 
+  // LẤY DỮ LIỆU CỦA CÙNG MỘT THÁNG TRONG 10 NĂM ĐỂ SO SÁNH KHOA HỌC
   List<FlSpot> _generateChartData() {
     List<FlSpot> spots = [];
-    for (int i = 0; i < 10; i++) {
-      double y = 0;
-      if (selectedIndicator == 'LST') { 
-        y = 30.0 + i * 0.8 + (wardName.hashCode % 5) * 0.2; 
-      } else if (selectedIndicator == 'NDVI') { 
-        y = 0.6 - i * 0.03 + (wardName.hashCode % 5) * 0.01; 
-      } else { 
-        y = 0.3 + i * 0.05 + (wardName.hashCode % 5) * 0.02; 
+    int targetMonth = month - 1; 
+    for (int yr = 0; yr < 10; yr++) {
+      int idx = yr * 12 + targetMonth;
+      if (idx < timeseries.length) {
+        spots.add(FlSpot(yr.toDouble(), timeseries[idx]));
       }
-      spots.add(FlSpot(i.toDouble(), y));
     }
     return spots;
   }

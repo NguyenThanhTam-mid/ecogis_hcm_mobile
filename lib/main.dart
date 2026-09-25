@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'core/services/alert_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'core/constants/app_colors.dart';
 import 'features/map/presentation/screens/eco_gis_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AlertService.init();
   runApp(const EcoGISApp());
 }
 
